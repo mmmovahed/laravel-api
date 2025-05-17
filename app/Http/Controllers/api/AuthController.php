@@ -6,12 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\HTTP\Requests\api\LoginUserRequest;
+use App\HTTP\Requests\api\RegisterUserRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\ApiResponses;
 
 class AuthController extends Controller
 {
     use ApiResponses;
+
+    public function register(RegisterUserRequest $request)
+    {
+        $user = new User();
+        $user->password = bcrypt($request['password']);
+        $user->email = $request["email"];
+        $user->name = $request["name"];
+        $user->phone = $request["phone"];
+        $user->save();
+
+        return $this->ok("User Registered.");
+    }
 
     public function login(LoginUserRequest $request)
     {
@@ -25,8 +38,19 @@ class AuthController extends Controller
 
         return $this->ok(
           'Authenticated.', [
-              'Token' => $user->createToken('API token for '.$user->email)->plainTextToken
+              'Token' => $user->createToken(
+                  'API token for '.$user->email,
+                  ['*'],
+                  now()->addWeek()
+              )->plainTextToken
             ]
         );
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return $this->ok("");
     }
 }
