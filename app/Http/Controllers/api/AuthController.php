@@ -23,7 +23,13 @@ class AuthController extends Controller
         $user->phone = $request["phone"];
         $user->save();
 
-        return $this->ok("User Registered.");
+        $token = $user->createToken('API token for '.$user->email)->plainTextToken;
+
+        return $this->ok('User Registered.', [
+            'token' => $token,
+            'user' => $user
+        ]);
+//        return $this->ok("User Registered.");
     }
 
     public function login(LoginUserRequest $request)
