@@ -16,44 +16,44 @@ class CollegeController extends Controller
     public function index()
     {
         $colleges = College::all();
-        return $this->ok("لیست دانشکده‌ها با موفقیت دریافت شد.", $colleges);
+        return $this->ok("Colleges listed successfully", $colleges);
     }
 
     public function show($id)
     {
         $college = College::find($id);
         if (!$college) {
-            return $this->error("دانشکده یافت نشد.", 404);
+            return $this->error("Not found.", 404);
         }
 
-        return $this->ok("دانشکده با موفقیت دریافت شد.", $college);
+        return $this->ok("Found successfully.", $college);
     }
 
     public function store(StoreCollegeRequest $request)
     {
         $college = College::create($request->validated());
-        return $this->ok("دانشکده با موفقیت ایجاد شد.", $college);
+        return $this->ok("College created successfully", $college);
     }
 
     public function update(UpdateCollegeRequest $request, $id)
     {
         $college = College::find($id);
         if (!$college) {
-            return $this->error("دانشکده یافت نشد.", 404);
+            return $this->error("Not found.", 404);
         }
 
         $college->update($request->validated());
-        return $this->ok("دانشکده با موفقیت به‌روزرسانی شد.", $college);
+        return $this->ok("Updated successfully", $college);
     }
 
     public function destroy(Request $request, $id)
     {
         $college = College::find($id);
         if (!$college) {
-            return $this->error("دانشکده یافت نشد.", 404);
+            return $this->error("Not found.", 404);
         }
 
         $college->delete();
-        return $this->ok("دانشکده با موفقیت حذف شد.");
+        return $this->ok("Deleted successfully.");
     }
 }
