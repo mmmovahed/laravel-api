@@ -24,7 +24,7 @@ class storeCollegeRequest extends FormRequest
         return [
             'name' => 'required|string|max:255|unique:colleges,name',
             'city' => 'required|string|max:50|',
-            'rank' => 'required|digits:3|unique:colleges',
+            'rank' => 'required|digits_between:1,100|unique:colleges',
         ];
     }
 }
