@@ -1,8 +1,8 @@
 <?php
 
-namespace App\HTTP\Requests\api\v1;
+namespace App\Http\Requests\api\v1;
 
-use Illuminate\Foundation\HTTP\FormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
 class updateCourseRequest extends FormRequest
 {
