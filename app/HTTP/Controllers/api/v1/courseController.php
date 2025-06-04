@@ -31,14 +31,14 @@ class CourseController extends Controller
         return $this->ok("Course details fetched successfully.", $course);
     }
 
-    public function store(StoreCourseRequest $request)
+    public function store(storeCourseRequest $request)
     {
         $course = Course::create($request->validated());
 
         return $this->ok("Course created successfully.", $course);
     }
 
-    public function update(UpdateCourseRequest $request, $id)
+    public function update(updateCourseRequest $request, $id)
     {
         $course = Course::find($id);
 
