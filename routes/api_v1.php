@@ -1,6 +1,6 @@
 <?php
 
-use App\HTTP\Controllers\api\V1\courseController;
+use App\HTTP\Controllers\api\v1\courseController;
 use App\HTTP\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
