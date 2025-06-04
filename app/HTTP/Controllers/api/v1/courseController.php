@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\HTTP\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use App\HTTP\Controllers\Controller;
 use App\Models\Course;
-use Illuminate\Http\Request;
-use App\Http\Requests\api\v1\storeCourseRequest;
-use App\Http\Requests\api\v1\updateCourseRequest;
-use App\Http\Requests\api\v1\massDestroyCourseRequest;
+use Illuminate\HTTP\Request;
+use App\HTTP\Requests\api\v1\storeCourseRequest;
+use App\HTTP\Requests\api\v1\updateCourseRequest;
+use App\HTTP\Requests\api\v1\massDestroyCourseRequest;
 use App\Traits\ApiResponses;
 
 class CourseController extends Controller

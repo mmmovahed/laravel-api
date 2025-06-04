@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\api;
+namespace App\HTTP\Requests\api;
 
 use Illuminate\Foundation\Http\FormRequest;
 use function Laravel\Prompts\password;

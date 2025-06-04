@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\HTTP\Controllers\api;
 
-use App\Http\Controllers\Controller;
+use App\HTTP\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\HTTP\Request;
 use App\HTTP\Requests\api\LoginUserRequest;
 use App\HTTP\Requests\api\RegisterUserRequest;
 use Illuminate\Support\Facades\Auth;
