@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\V1\courseController;
-use App\Http\Controllers\AuthController;
+use App\HTTP\Controllers\Api\V1\courseController;
+use App\HTTP\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
