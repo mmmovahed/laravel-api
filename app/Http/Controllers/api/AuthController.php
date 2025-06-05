@@ -4,9 +4,9 @@ namespace App\HTTP\Controllers\api;
 
 use App\HTTP\Controllers\Controller;
 use App\Models\User;
-use Illuminate\HTTP\Request;
-use App\HTTP\Requests\api\LoginUserRequest;
-use App\HTTP\Requests\api\RegisterUserRequest;
+use Illuminate\Http\Request;
+use App\Http\Requests\api\LoginUserRequest;
+use App\Http\Requests\api\RegisterUserRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\ApiResponses;
 
