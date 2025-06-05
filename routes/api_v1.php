@@ -4,6 +4,7 @@ use App\Http\Controllers\api\v1\courseController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\collegeController;
+use \App\Http\Controllers\api\v1\categoryController;
 
 Route::middleware('auth:sanctum')->group(function () {
     //courses API
@@ -16,4 +17,6 @@ Route::middleware('auth:sanctum')->group(function () {
     //colleges API
     Route::apiResource('colleges', collegeController::class);
 
+    //Categories API
+    Route::apiResource('categories', categoryController::class);
 });
