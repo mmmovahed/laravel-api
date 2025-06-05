@@ -72,6 +72,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Traits\ApiResponses;
 use Exception;
 use Illuminate\Database\QueryException;
+use App\Helpers\RoleHelper;
 
 class AuthController extends Controller
 {
@@ -95,11 +96,13 @@ class AuthController extends Controller
             $user->phone = $request["phone"];
             $user->save();
 
+//            $token = $user->createToken('API token for ' . $user->email)->plainTextToken;
             $token = $user->createToken('API token for ' . $user->email)->plainTextToken;
 
             return $this->ok('User Registered.', [
                 'token' => $token,
-                'user' => $user
+                'user' => $user,
+                'role_token' => RoleHelper::encodeRole("user")
             ]);
         } catch (QueryException $e) {
             return $this->error('Database error during registration.', 500, [
@@ -121,13 +124,22 @@ class AuthController extends Controller
 
             $user = User::firstWhere('email', $request->email);
 
+//            return $this->ok('Authenticated.', [
+//                'Token' => $user->createToken(
+//                    'API token for ' . $user->email,
+//                    ['*'],
+//                    now()->addWeek()
+//                )->plainTextToken
+//            ]);
             return $this->ok('Authenticated.', [
-                'Token' => $user->createToken(
+                'token' => $user->createToken(
                     'API token for ' . $user->email,
                     ['*'],
                     now()->addWeek()
-                )->plainTextToken
+                )->plainTextToken,
+                'role_token' => RoleHelper::encodeRole($user->role)
             ]);
+
         } catch (QueryException $e) {
             return $this->error('Database error during login.', 500, [
                 'error' => $e->getMessage()
