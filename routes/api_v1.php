@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\collegeController;
 use \App\Http\Controllers\api\v1\categoryController;
+use \App\Http\Controllers\api\v1\filtersForCourses;
 
 Route::middleware('auth:sanctum')->group(function () {
     //courses API
@@ -19,4 +20,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Categories API
     Route::apiResource('categories', categoryController::class);
+
+    //Filters
+    Route::get('filters/mostwanted', [filtersForCourses::class, 'mostWanted']);
+    Route::get('filters/ratedcourses', [filtersForCourses::class, 'ratedCourses']);
+    Route::get('filters/newlyaddedcourses', [filtersForCourses::class, 'newlyAddedCourses']);
 });
+//Route::middleware('auth:sanctum')->get('test', function () {
+//    return ['data' => 'You are logged in!'];
+//});
