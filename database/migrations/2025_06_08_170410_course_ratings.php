@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->tinyInteger('rating');
             $table->timestamps();
+
+            $table->unique(['course_id','user_id']);
         });
     }
 
