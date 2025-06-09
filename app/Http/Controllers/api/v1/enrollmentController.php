@@ -48,10 +48,7 @@ class EnrollmentController extends Controller
         if (!$en) {
             return $this->error("Enrollment not found.",404);
         }
-        // فقط خودِ کاربر یا ادمین می‌تونه لغو کنه
-        if ($request->user()->id != $en->user_id && !$request->user()->isAdmin()) {
-            return $this->error("Unauthorized.",403);
-        }
+
         \DB::table('course_user')->where('id',$id)->delete();
         return $this->ok("Enrollment cancelled.");
     }
