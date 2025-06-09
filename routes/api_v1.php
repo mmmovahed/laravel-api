@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\api\v1\courseController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\api\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\collegeController;
 use \App\Http\Controllers\api\v1\categoryController;
 use \App\Http\Controllers\api\v1\filtersForCourses;
+use \App\Http\Controllers\api\v1\enrollmentController;
+use \App\Http\Controllers\api\v1\courseRatingController;
 
 Route::middleware('auth:sanctum')->group(function () {
     //courses API
@@ -25,6 +27,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('filters/mostwanted', [filtersForCourses::class, 'mostWanted']);
     Route::get('filters/ratedcourses', [filtersForCourses::class, 'ratedCourses']);
     Route::get('filters/newlyaddedcourses', [filtersForCourses::class, 'newlyAddedCourses']);
+
+    // Enrollments
+    Route::get('enrollments', [enrollmentController::class,'index']);
+    Route::post('enrollments', [enrollmentController::class,'store']);
+    Route::delete('enrollments/{id}', [enrollmentController::class,'destroy']);
+
+    // Ratings
+    Route::apiResource('ratings', courseRatingController::class)->except(['create','edit', 'index']);
 });
 //Route::middleware('auth:sanctum')->get('test', function () {
 //    return ['data' => 'You are logged in!'];
