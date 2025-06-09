@@ -11,16 +11,16 @@ class filtersForCourses extends Controller
 {
     public function mostWanted(checkForAuth $request)
     {
-        return Course::withCount('users')->orderByDesc('users_count')->get();
+        return Course::withCount('users')->orderByDesc('users_count')->where('status','active')->get();
     }
 
     public function ratedCourses(checkForAuth $request)
     {
-        return Course::withAvg('ratings', 'rating')->orderByDesc('ratings_avg_rating')->get();
+        return Course::withAvg('ratings', 'rating')->where('status','active')->orderByDesc('ratings_avg_rating')->get();
     }
 
     public function newlyAddedCourses(checkForAuth $request)
     {
-        return Course::orderByDesc('created_at')->get();
+        return Course::orderByDesc('created_at')->where('status','active')->get();
     }
 }
