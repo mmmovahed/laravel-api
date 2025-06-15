@@ -20,5 +20,13 @@ class adminUserSeeder extends Seeder
             'phone' => '09120000000',
             'role' => 'admin',
         ]);
+
+        User::create([
+            'name' => 'مدرس نمونه',
+            'email' => 'teacher@example.com',
+            'password' => bcrypt('123456789'),
+            'phone' => '09130000000',
+            'role' => 'teacher',
+        ]);
     }
 }

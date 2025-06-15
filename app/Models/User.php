@@ -52,6 +52,16 @@ class User extends Authenticatable
         return $this->role === 'admin';
     }
 
+    public function isTeacher()
+    {
+        return $this->role === 'teacher';
+    }
+
+    public function isUser()
+    {
+        return $this->role === 'user';
+    }
+
     public function courses()
     {
         return $this->belongsToMany(Course::class);
