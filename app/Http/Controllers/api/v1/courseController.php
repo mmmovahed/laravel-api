@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\CourseRating;
 use Illuminate\Http\Request;
 use App\Http\Requests\api\v1\storeCourseRequest;
 use App\Http\Requests\api\v1\updateCourseRequest;
@@ -20,15 +21,21 @@ class CourseController extends Controller
         return $this->ok("Course list fetched successfully.", $courses);
     }
 
-    public function show($id)
+    public function show(Request $request, Course $course)
     {
-        $course = Course::with(['category', 'college'])->find($id);
+        $user = $request->user();
 
-        if (!$course) {
-            return $this->error("Course not found.", 404);
-        }
+        $isRegistered = $course->users()->where('user_id', $user->id)->exists();
 
-        return $this->ok("Course details fetched successfully.", $course);
+        $userRating = CourseRating::where('course_id', $course->id)
+            ->where('user_id', $user->id)
+            ->first();
+
+        return $this->ok('Course details.', [
+            'course' => $course,
+            'is_registered' => $isRegistered,
+            'user_rating' => $userRating->rating,
+        ]);
     }
 
     public function store(storeCourseRequest $request)
@@ -70,5 +77,14 @@ class CourseController extends Controller
         $course->delete();
 
         return $this->ok("Course deleted successfully.");
+    }
+
+    public function myCourses(Request $request)
+    {
+        $user = $request->user();
+
+        $courses = $user->courses()->with('college', 'category')->get();
+
+        return $this->ok('Registered courses fetched.', $courses);
     }
 }

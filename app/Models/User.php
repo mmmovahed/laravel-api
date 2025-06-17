@@ -62,12 +62,16 @@ class User extends Authenticatable
         return $this->role === 'user';
     }
 
+    public function hasAnyRole(array $roles): bool
+    {
+        return in_array($this->role, $roles);
+    }
     public function courses()
     {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class)->withTimestamps();
     }
 
-    public function courseRatings()
+    public function ratings()
     {
         return $this->hasMany(CourseRating::class);
     }

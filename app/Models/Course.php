@@ -31,7 +31,7 @@ class Course extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 
     public function ratings()
@@ -44,4 +44,8 @@ class Course extends Model
         return $this->ratings()->avg('rating');
     }
 
+    public function sections()
+    {
+        return $this->hasMany(SectionResource::class);
+    }
 }

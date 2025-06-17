@@ -8,6 +8,7 @@ use \App\Http\Controllers\api\v1\categoryController;
 use \App\Http\Controllers\api\v1\filtersForCourses;
 use \App\Http\Controllers\api\v1\enrollmentController;
 use \App\Http\Controllers\api\v1\courseRatingController;
+use \App\Http\Controllers\api\v1\sectionResourceController;
 
 Route::middleware('auth:sanctum')->group(function () {
     //courses API
@@ -35,6 +36,20 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Ratings
     Route::apiResource('ratings', courseRatingController::class)->except(['create','edit', 'index']);
+
+    // Course Resources
+    Route::prefix('resources')->group(function () {
+        Route::get('/course/{courseId}', [sectionResourceController::class, 'index']);
+        Route::post('/', [sectionResourceController::class, 'store']);
+        Route::get('/{resource}', [sectionResourceController::class, 'show']);
+        Route::put('/{resource}', [sectionResourceController::class, 'update']);
+        Route::delete('/{resource}', [sectionResourceController::class, 'destroy']);
+        Route::get('/{resource}/download', [sectionResourceController::class, 'download']);
+
+    });
+
+    // My course
+    Route::get('/my-courses', [courseController::class, 'myCourses']);
 });
 //Route::middleware('auth:sanctum')->get('test', function () {
 //    return ['data' => 'You are logged in!'];
