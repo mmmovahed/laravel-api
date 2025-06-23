@@ -54,9 +54,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/my-courses', [courseController::class, 'myCourses']);
 
     // Comments
-    Route::post('/comments', [courseCommentController::class, 'store']);
-    Route::get('/comments/{course_id}', [courseCommentController::class, 'index']);
-    Route::delete('/comments/{Comment_id}', [courseCommentController::class, 'destroy']);
+    Route::prefix('comments')->group(function () {
+        Route::post('/', [courseCommentController::class, 'store']);
+        Route::get('/{course_id}', [courseCommentController::class, 'index']);
+        Route::delete('/{Comment_id}', [courseCommentController::class, 'destroy']);
+    });
 });
 
 
