@@ -9,6 +9,8 @@ use \App\Http\Controllers\api\v1\filtersForCourses;
 use \App\Http\Controllers\api\v1\enrollmentController;
 use \App\Http\Controllers\api\v1\courseRatingController;
 use \App\Http\Controllers\api\v1\sectionResourceController;
+use \App\Http\Controllers\api\v1\courseCommentController;
+
 
 Route::middleware('auth:sanctum')->group(function () {
     //courses API
@@ -50,7 +52,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // My course
     Route::get('/my-courses', [courseController::class, 'myCourses']);
+
+    // Comments
+    Route::post('/comments', [courseCommentController::class, 'store']);
+    Route::get('/comments/{course_id}', [courseCommentController::class, 'index']);
+    Route::delete('/comments/{Comment_id}', [courseCommentController::class, 'destroy']);
 });
+
+
 //Route::middleware('auth:sanctum')->get('test', function () {
 //    return ['data' => 'You are logged in!'];
 //});
