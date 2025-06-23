@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\SectionResource;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\api\v1\storeSectionResourceRequest;
 use App\Http\Requests\api\v1\updateSectionResourceRequest;
@@ -42,6 +43,7 @@ class sectionResourceController extends Controller
 
         $resource->update($request->only(['title', 'type']));
 
+        $resource->save();
         return $this->ok('Resource updated.', $resource);
     }
 
