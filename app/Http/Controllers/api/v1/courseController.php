@@ -87,4 +87,20 @@ class CourseController extends Controller
 
         return $this->ok('Registered courses fetched.', $courses);
     }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('q');
+
+        if (!$keyword)
+            return $this->error('No search keyword provided', 422);
+
+        $courses = Course::query()
+            ->where('name', 'like', "%{keyword}%")
+            ->orwhere('teacher', 'like', "%{keyword}%")
+            ->with('college', 'category')
+            ->get();
+
+        return $this->ok('Search results.', $courses);
+    }
 }

@@ -14,11 +14,15 @@ use \App\Http\Controllers\api\v1\courseCommentController;
 
 Route::middleware('auth:sanctum')->group(function () {
     //courses API
-    Route::post('courses/create', [courseController::class, 'store']);
-    Route::get('courses', [courseController::class, 'index']);
-    Route::get('courses/{id}', [courseController::class, 'show']);
-    Route::put('courses/{id}', [courseController::class, 'update']);
-    Route::delete('courses/{id}', [courseController::class, 'destroy']);
+    Route::prefix('/courses')->group(function(){
+        Route::post('/create', [courseController::class, 'store']);
+        Route::get('/', [courseController::class, 'index']);
+        Route::get('/{id}', [courseController::class, 'show']);
+        Route::put('/{id}', [courseController::class, 'update']);
+        Route::delete('/{id}', [courseController::class, 'destroy']);
+        Route::get('/search', [courseController::class, 'search']);
+    });
+
 
     //colleges API
     Route::apiResource('colleges', collegeController::class);
