@@ -20,6 +20,7 @@ class updateSectionResourceRequest extends FormRequest
             'title' => 'sometimes|string|max:255',
             'type' => 'sometimes|in:video,pdf,docx,slide',
             'file' => 'sometimes|file',
+            'thumbnail' => 'sometimes|image',
         ];
     }
 }

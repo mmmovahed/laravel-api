@@ -42,7 +42,14 @@ class CourseController extends Controller
 
     public function store(storeCourseRequest $request)
     {
-        $course = Course::create($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('thumbnail')) {
+            $thumbnailPath = $request->file('thumbnail')->store('thumbnails/courses', 'public');
+            $data['thumbnail_path'] = $thumbnailPath;
+        }
+
+        $course = Course::create($data);
 
         return $this->ok("Course created successfully.", $course);
     }
@@ -59,10 +66,18 @@ class CourseController extends Controller
             return $this->error("Unauthorized.", 403);
         }
 
-        $course->update($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('thumbnail')) {
+            $thumbnailPath = $request->file('thumbnail')->store('thumbnails/courses', 'public');
+            $data['thumbnail_path'] = $thumbnailPath;
+        }
+
+        $course->update($data);
 
         return $this->ok("Course updated successfully.", $course);
     }
+
 
     public function destroy(massDestroyCourseRequest $request, $id)
     {
