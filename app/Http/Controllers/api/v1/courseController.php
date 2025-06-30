@@ -34,7 +34,7 @@ class CourseController extends Controller
         return $this->ok('Course details.', [
             'course' => $course,
             'is_registered' => $isRegistered,
-            'user_rating' => $userRating->rating,
+            'user_rating' => $userRating?->rating ?? null,
         ]);
     }
 
