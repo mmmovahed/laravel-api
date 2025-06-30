@@ -21,11 +21,13 @@ class CourseController extends Controller
         return $this->ok("Course list fetched successfully.", $courses);
     }
 
-    public function show(Request $request, Course $course)
+    public function show(Request $request, Course $course, $courseId)
     {
         $user = $request->user();
 
         $isRegistered = $course->users()->where('user_id', $user->id)->exists();
+
+        $course = Course::with(['college', 'category'])->findOrFail($courseId);
 
         $userRating = CourseRating::where('course_id', $course->id)
             ->where('user_id', $user->id)
