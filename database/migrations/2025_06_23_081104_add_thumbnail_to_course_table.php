@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('course', function (Blueprint $table) {
+        Schema::table('courses', function (Blueprint $table) {
             $table->string('thumbnail_path')->nullable()->after('status');
         });
     }

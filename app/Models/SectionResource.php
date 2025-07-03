@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SectionResource extends Model
 {
-    protected $fillable=['course_id', 'title', 'type', 'file', 'file_path'];
+    protected $fillable=['course_id', 'title', 'type', 'file', 'file_path', 'thumbnail_path'];
     public function course()
     {
         return $this->belongsTo(Course::class);

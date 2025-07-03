@@ -21,6 +21,7 @@ class storeSectionResourceRequest extends FormRequest
             'title' => 'required|string|max:255',
             'type' => 'required|in:video,pdf,docx,slide',
             'file' => 'required|file',
+            'thumbnail_path' => 'required|image',
         ];
     }
 }

@@ -16,6 +16,7 @@ class Course extends Model
         'name',
         'description',
         'teacher',
+        'thumbnail_path',
         'status',
     ];
 
