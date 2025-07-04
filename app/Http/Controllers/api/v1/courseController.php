@@ -68,8 +68,8 @@ class CourseController extends Controller
 
         $data = $request->validated();
 
-        if ($request->hasFile('thumbnail')) {
-            $thumbnailPath = $request->file('thumbnail')->store('thumbnails/courses', 'public');
+        if ($request->hasFile('thumbnail_path')) {
+            $thumbnailPath = $request->file('thumbnail_path')->store('thumbnails/courses', 'public');
             $data['thumbnail_path'] = $thumbnailPath;
         }
 

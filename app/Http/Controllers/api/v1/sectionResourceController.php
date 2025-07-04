@@ -23,7 +23,7 @@ class sectionResourceController extends Controller
     public function store(storeSectionResourceRequest $request)
     {
         $filePath = $request->file('file')->store('resources', 'public');
-        $thumbnailFilePath = $request->thumbnail_path('file')->store('thumbnails/sections', 'public');
+        $thumbnailFilePath = $request->file('thumbnail_path')->store('thumbnails/sections', 'public');
 
         $resource = SectionResource::create([
             'course_id' => $request->course_id,
@@ -43,11 +43,16 @@ class sectionResourceController extends Controller
             $resource->file_path = $request->file('file')->store('resources', 'public');
         }
 
-        $resource->update($request->only(['title', 'type']));
+        if ($request->hasFile('thumbnail_path')) {
+            \Storage::disk('public')->delete($resource->thumbnail_path);
+            $resource->thumbnail_path = $request->file('thumbnail_path')->store('thumbnails/sections', 'public');
+        }
 
-        $resource->save();
+        $resource->update($request->validated());
+
         return $this->ok('Resource updated.', $resource);
     }
+
 
     public function destroy(SectionResource $resource)
     {
