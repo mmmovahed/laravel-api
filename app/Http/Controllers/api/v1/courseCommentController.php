@@ -16,7 +16,7 @@ class courseCommentController extends Controller
     {
         $comment = CourseComment::create([
             'course_id' => $request->course_id,
-            'user_id' => $request->user_id,
+            'user_id' => $request->user()->id,
             'comment' => $request->comment,
         ]);
 
