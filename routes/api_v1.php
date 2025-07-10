@@ -10,15 +10,17 @@ use \App\Http\Controllers\api\v1\enrollmentController;
 use \App\Http\Controllers\api\v1\courseRatingController;
 use \App\Http\Controllers\api\v1\sectionResourceController;
 use \App\Http\Controllers\api\v1\courseCommentController;
+use \App\Http\Controllers\api\v1\UserController;
 
 
 Route::middleware('auth:sanctum')->group(function () {
     //courses API
     Route::prefix('/courses')->group(function(){
         Route::post('/create', [courseController::class, 'store']);
+        Route::post('/create_course', [courseController::class, 'storeForTeacher']);
         Route::get('/', [courseController::class, 'index']);
         Route::get('/{id}', [courseController::class, 'show']);
-        Route::put('/{id}', [courseController::class, 'update']);
+        Route::post('/{id}', [courseController::class, 'update']);
         Route::delete('/{id}', [courseController::class, 'destroy']);
         Route::get('/search', [courseController::class, 'search']);
     });
@@ -63,6 +65,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{course_id}', [courseCommentController::class, 'index']);
         Route::delete('/{Comment_id}', [courseCommentController::class, 'destroy']);
     });
+
+    // User list
+    Route::get('/admin/users', [UserController::class, 'index']);
+    Route::get('/admin/users/{id}/courses', [UserController::class, 'userCourses']);
+    Route::put('/admin/users/{id}/', [UserController::class, 'update']);
 });
 
 

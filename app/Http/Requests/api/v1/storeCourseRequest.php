@@ -28,7 +28,7 @@ class storeCourseRequest extends FormRequest
             'college_id' => 'required|exists:colleges,id',
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'teacher' => 'required|string|max:255',
+            'teacher' => 'sometimes|string|max:255',
             'status' => 'required|in:active,inactive',
             'thumbnail_path' => 'image',
         ];

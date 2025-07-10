@@ -15,11 +15,16 @@ class courseRatingController extends Controller
 
     public function store(StoreCourseRatingRequest $request)
     {
-        $rating = CourseRating::create($request->validated());
-        if($rating)
+        $validated = $request->validated();
+        $validated['user_id'] = $request->user()->id;
+
+        $rating = CourseRating::create($validated);
+
+        if ($rating) {
             return $this->ok("Rating added.", $rating);
-        else
-            abort(403,"Not allowed request");
+        } else {
+            abort(403, "Not allowed request");
+        }
     }
 
     public function update(updateCourseRatingRequest $request, CourseRating $rating)

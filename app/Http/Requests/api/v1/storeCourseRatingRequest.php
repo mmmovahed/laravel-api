@@ -9,21 +9,13 @@ class storeCourseRatingRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        if ($this->user()?->isAdmin())
-            return true;
-
-        return $this->user()->id == $this->user_id;
+        return true;
     }
 
     public function rules(): array
     {
         return [
             'course_id' => ['required','exists:courses,id'],
-            'user_id'   => [
-                'required','exists:users,id',
-                Rule::unique('course_ratings')
-                    ->where(fn($q)=> $q->where('course_id', $this->course_id))
-            ],
             'rating'    => ['required','integer','between:1,5'],
         ];
     }

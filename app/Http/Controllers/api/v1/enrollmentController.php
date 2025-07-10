@@ -19,29 +19,35 @@ class EnrollmentController extends Controller
     {
         $query = CourseUser::query();
 
-        if ($request->has('user_id')) {
-            $query->where('user_id', $request->user_id);
+        $user = $request->user();
+        if ($user) {
+            $query->where('user_id', $user->id);
         }
 
         if ($request->has('course_id')) {
             $query->where('course_id', $request->course_id);
         }
 
-        $enrollments = $query->with('course')->get();
-        $enrollments = $query->with('user')->get();
+//        $enrollments = $query->with('course')->get();
+//        $enrollments = $query->with('user')->get();
+
+        $enrollments = $query->with(['course', 'user'])->get();
 
         return $this->ok("Enrollments fetched.", $enrollments);
     }
 
     public function store(storeEnrollmentRequest $request)
     {
-        if (CourseUser::create($request->validated())) {
-            return $this->ok("User enrolled in course.");
+        $data = $request->validated();
+        $data['user_id'] = $request->user()->id;
+
+        if (CourseUser::create($data)) {
+            return $this->ok("User enrolled in course.", $data);
         }
-        return $this->error("User did not enrol in course.");
+
+        return $this->error("User did not enroll in course.");
     }
 
-    // لغو ثبت‌نام
     public function destroy(massDestroyEnrollmentRequest $request, $id)
     {
         $en = \DB::table('course_user')->where('id',$id)->first();

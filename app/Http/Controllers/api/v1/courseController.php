@@ -54,6 +54,22 @@ class CourseController extends Controller
         return $this->ok("Course created successfully.", $course);
     }
 
+    public function storeForTeacher(storeCourseRequest $request)
+    {
+        $data = $request->validated();
+
+        if ($request->hasFile('thumbnail_path')) {
+            $thumbnailPath = $request->file('thumbnail_path')->store('thumbnails/courses', 'public');
+            $data['thumbnail_path'] = $thumbnailPath;
+        }
+
+        $data["teacher"] = $request->user()->name;
+
+        $course = Course::create($data);
+
+        return $this->ok("Course created successfully.", $course);
+    }
+
     public function update(updateCourseRequest $request, $id)
     {
         $course = Course::find($id);
