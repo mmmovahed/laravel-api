@@ -22,12 +22,6 @@ class storeEnrollmentRequest extends FormRequest
                 'required',
                 Rule::exists('courses', 'id')->where('status', 'active')
             ],
-            'user_id'   => [
-                'required','exists:users,id',
-
-                Rule::unique('course_user')
-                    ->where(fn($q)=> $q->where('course_id', $this->course_id))
-            ],
         ];
     }
 }

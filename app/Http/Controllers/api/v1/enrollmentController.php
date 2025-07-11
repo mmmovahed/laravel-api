@@ -39,7 +39,16 @@ class EnrollmentController extends Controller
     public function store(storeEnrollmentRequest $request)
     {
         $data = $request->validated();
+
         $data['user_id'] = $request->user()->id;
+
+        $alreadyEnrolled = CourseUser::where('course_id', $data['course_id'])
+            ->where('user_id', $data['user_id'])
+            ->exists();
+
+        if ($alreadyEnrolled) {
+            return $this->error("User is already enrolled in this course.", 409);
+        }
 
         if (CourseUser::create($data)) {
             return $this->ok("User enrolled in course.", $data);
