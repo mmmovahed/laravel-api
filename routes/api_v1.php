@@ -70,6 +70,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/admin/users', [UserController::class, 'index']);
     Route::get('/admin/users/{id}/courses', [UserController::class, 'userCourses']);
     Route::put('/admin/users/{id}/', [UserController::class, 'update']);
+
+    // Statistics
+    Route::get('/admin/statistics', [UserController::class, 'statistics']);
 });
 
 
