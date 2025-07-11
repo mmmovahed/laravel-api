@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\CourseRating;
+use App\Models\CourseUser;
 use Illuminate\Http\Request;
 use App\Http\Requests\api\v1\storeCourseRequest;
 use App\Http\Requests\api\v1\updateCourseRequest;
@@ -21,11 +22,11 @@ class CourseController extends Controller
         return $this->ok("Course list fetched successfully.", $courses);
     }
 
-    public function show(Request $request, Course $course, $courseId)
+    public function show(Request $request, Course $course, CourseUser $courseUser, $courseId)
     {
         $user = $request->user();
 
-        $isRegistered = $course->users()->where('user_id', $user->id)->exists();
+        $isRegistered = $courseUser->where('user_id', $user->id)->where('course_id', $courseId)->exists();
 
         $course = Course::with(['college', 'category'])->findOrFail($courseId);
 

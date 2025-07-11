@@ -62,15 +62,17 @@ class UserController extends Controller
 
     public function update(updateUserRequest $request, $id)
     {
-        if (!$request->user()->role == "admin")
+        if ($request->user()->role != "admin")
             return $this->error("Unauthenticated", 403 );
 
 
         $user = User::find($id);
-
+        if (!$user) {
+            return $this->error("User not found.", 404);
+        }
 
         $user->update($request->validated());
-
+        $user->save();
         return $this->ok("User updated successfully.", $user);
     }
 

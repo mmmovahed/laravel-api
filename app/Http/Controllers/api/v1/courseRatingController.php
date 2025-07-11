@@ -29,7 +29,10 @@ class courseRatingController extends Controller
 
     public function update(updateCourseRatingRequest $request, CourseRating $rating)
     {
-        $rating->update($request->validated());
+        $validated = $request->validated();
+        $validated["user_id"] = $request->user()->id;
+
+        $rating->update($validated);
         return $this->ok("Rate updated.", $rating);
     }
 
