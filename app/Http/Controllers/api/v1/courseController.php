@@ -129,11 +129,14 @@ class CourseController extends Controller
             return $this->error('No search keyword provided', 422);
 
         $courses = Course::query()
-            ->where('name', 'like', "%{keyword}%")
-            ->orwhere('teacher', 'like', "%{keyword}%")
+            ->where('name', 'like', "%{$keyword}%")
+            ->orwhere('teacher', 'like', "%{$keyword}%")
             ->with('college', 'category')
             ->get();
 
-        return $this->ok('Search results.', $courses);
+        if($courses)
+            return $this->ok('Search results.', $courses);
+
+        return $this->error('No information found.', 404);
     }
 }

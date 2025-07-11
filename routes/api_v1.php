@@ -16,13 +16,13 @@ use \App\Http\Controllers\api\v1\UserController;
 Route::middleware('auth:sanctum')->group(function () {
     //courses API
     Route::prefix('/courses')->group(function(){
+        Route::get('/search', [courseController::class, 'search']);
         Route::post('/create', [courseController::class, 'store']);
         Route::post('/create_course', [courseController::class, 'storeForTeacher']);
         Route::get('/', [courseController::class, 'index']);
         Route::get('/{id}', [courseController::class, 'show']);
         Route::post('/{id}', [courseController::class, 'update']);
         Route::delete('/{id}', [courseController::class, 'destroy']);
-        Route::get('/search', [courseController::class, 'search']);
     });
 
 
