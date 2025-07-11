@@ -16,7 +16,16 @@ class courseRatingController extends Controller
     public function store(StoreCourseRatingRequest $request)
     {
         $validated = $request->validated();
-        $validated['user_id'] = $request->user()->id;
+        $userId = $request->user()->id;
+        $courseId = $validated['course_id'];
+
+        $existingRating = CourseRating::where('user_id', $userId)
+            ->where('course_id', $courseId)
+            ->first();
+
+        if ($existingRating) {
+            return $this->error("You have already rated this course.", 409); // Conflict
+        }
 
         $rating = CourseRating::create($validated);
 
