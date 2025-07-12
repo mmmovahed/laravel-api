@@ -30,7 +30,7 @@ class storeCourseRequest extends FormRequest
             'description' => 'nullable|string',
             'teacher' => 'sometimes|string|max:255',
             'status' => 'required|in:active,inactive',
-            'thumbnail_path' => 'image',
+            'thumbnail_path' => 'sometimes|image',
         ];
     }
 }

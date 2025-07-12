@@ -20,7 +20,7 @@ class storeSectionResourceRequest extends FormRequest
             'course_id' => 'required|exists:courses,id',
             'title' => 'required|string|max:255',
             'type' => 'required|in:video,pdf,docx,slide',
-            'file' => 'required|file',
+            'file' => 'sometimes|file',
             'thumbnail_path' => 'sometimes|image',
         ];
     }

@@ -29,6 +29,7 @@ class updateCourseRequest extends FormRequest
             'name' => 'sometimes|string|max:255',
             'description' => 'nullable|string',
             'teacher' => 'sometimes|string|max:255',
+            'thumbnail_path' => 'sometimes|image',
             'status' => 'sometimes|in:active,inactive',
         ];
     }
