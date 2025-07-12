@@ -57,6 +57,11 @@ class User extends Authenticatable
         return $this->role === 'teacher';
     }
 
+    public function scopeTeachers($query)
+    {
+        return $query->where('role', 'teacher');
+    }
+
     public function isUser()
     {
         return $this->role === 'user';

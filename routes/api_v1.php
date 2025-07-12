@@ -11,6 +11,7 @@ use \App\Http\Controllers\api\v1\courseRatingController;
 use \App\Http\Controllers\api\v1\sectionResourceController;
 use \App\Http\Controllers\api\v1\courseCommentController;
 use \App\Http\Controllers\api\v1\UserController;
+use \App\Http\Controllers\api\v1\teacherController;
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -70,6 +71,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/admin/users', [UserController::class, 'index']);
     Route::get('/admin/users/{id}/courses', [UserController::class, 'userCourses']);
     Route::put('/admin/users/{id}/', [UserController::class, 'update']);
+
+    // Teacher list
+    Route::prefix('admin/teachers')->group(function () {
+        Route::get('/', [teacherController::class, 'index']);
+        Route::post('/', [teacherController::class, 'store']);
+        Route::get('/{id}', [teacherController::class, 'show']);
+        Route::put('/{id}', [teacherController::class, 'update']);
+        Route::delete('/{id}', [teacherController::class, 'destroy']);
+    });
 
     // Statistics
     Route::get('/admin/statistics', [UserController::class, 'statistics']);
