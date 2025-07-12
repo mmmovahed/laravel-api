@@ -22,9 +22,13 @@ class sectionResourceController extends Controller
 
     public function store(storeSectionResourceRequest $request)
     {
-        $filePath = $request->file('file')->store('resources', 'public');
-        $thumbnailFilePath = $request->file('thumbnail_path')->store('thumbnails/sections', 'public');
 
+        $filePath = $request->file('file')->store('resources', 'public');
+
+        if ($request->file('thumbnail_path'))
+            $thumbnailFilePath = $request->file('thumbnail_path')->store('thumbnails/sections', 'public');
+        else
+            $thumbnailFilePath = null;
         $resource = SectionResource::create([
             'course_id' => $request->course_id,
             'title' => $request->title,
