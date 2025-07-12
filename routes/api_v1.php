@@ -50,7 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/course/{courseId}', [sectionResourceController::class, 'index']);
         Route::post('/', [sectionResourceController::class, 'store']);
         Route::get('/{resource}', [sectionResourceController::class, 'show']);
-        Route::put('/{resource}', [sectionResourceController::class, 'update']);
+        Route::post('/{resource}', [sectionResourceController::class, 'update']);
         Route::delete('/{resource}', [sectionResourceController::class, 'destroy']);
         Route::get('/{resource}/download', [sectionResourceController::class, 'download']);
 
