@@ -36,14 +36,31 @@ class courseRatingController extends Controller
         }
     }
 
-    public function update(updateCourseRatingRequest $request, CourseRating $rating)
+    public function update(updateCourseRatingRequest $request, $course_id)
     {
         $validated = $request->validated();
-        $validated["user_id"] = $request->user()->id;
 
-        $rating->update($validated);
+        $userId = $request->user()->id;
+        $courseId = $course_id;
+        $ratingValue = $validated['rating'];
+
+        // پیدا کردن رکورد مرتبط با user_id و course_id
+        $rating = CourseRating::where('user_id', $userId)
+            ->where('course_id', $courseId)
+            ->first();
+
+        if (!$rating) {
+            return $this->error("Rating not found for this user and course.", 404);
+        }
+
+        // فقط مقدار rating را آپدیت کن
+        $rating->update([
+            'rating' => $ratingValue
+        ]);
+
         return $this->ok("Rate updated.", $rating);
     }
+
 
     public function destroy(Request $request, CourseRating $rating)
     {
