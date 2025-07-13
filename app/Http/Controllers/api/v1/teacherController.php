@@ -25,9 +25,10 @@ class teacherController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'phone' => 'nullable|string|max:20',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:9',
         ]);
 
+//        dd($validated);
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
