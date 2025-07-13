@@ -19,6 +19,8 @@ class courseRatingController extends Controller
         $userId = $request->user()->id;
         $courseId = $validated['course_id'];
 
+        $validated['user_id'] = $userId;
+
         $existingRating = CourseRating::where('user_id', $userId)
             ->where('course_id', $courseId)
             ->first();
