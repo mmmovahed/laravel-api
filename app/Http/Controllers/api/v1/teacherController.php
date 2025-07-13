@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Traits\ApiResponses;
 
-class TeacherController extends Controller
+class teacherController extends Controller
 {
     use ApiResponses;
 
